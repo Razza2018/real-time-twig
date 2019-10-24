@@ -8,9 +8,9 @@ import { TwigService } from '../twig.service';
 })
 export class HomeComponent implements OnInit {
 
-  twigTemplate: string = "{{- 'Hello Everyone!' -}}{% if 'name' %}";
-  cssTemplate: string = '* {color: red;}';
-  renderedHtml: string = "";
+  twigTemplate: string = '';
+  cssTemplate: string = '';
+  renderedHtml: string = '';
 
   previousWidth: number = 0;
 
