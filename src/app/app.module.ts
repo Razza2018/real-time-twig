@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
