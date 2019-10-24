@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { TwigService } from '../twig.service';
 
 @Component({
@@ -10,6 +10,21 @@ export class HomeComponent implements OnInit {
 
   twigTemplate: string = "{{- 'Hello Everyone!' -}}{% if 'name' %}";
   renderedHtml: string = "";
+
+  previousWidth: number = 0;
+
+  @ViewChild('twigTemplateElement',  {static: false}) twigTemplateElement: ElementRef;
+  @ViewChild('cssTemplateElement',  {static: false}) cssTemplateElement: ElementRef;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if ((this.previousWidth >= 1469 && event.target.innerWidth < 1469) || (this.previousWidth < 1469 && event.target.innerWidth >= 1469)) {
+      this.adjustTextAreaHeight({target: this.twigTemplateElement.nativeElement});
+      this.adjustTextAreaHeight({target: this.cssTemplateElement.nativeElement});
+    }
+
+    this.previousWidth = event.target.innerWidth;
+  }
 
   constructor(private twig: TwigService) { }
 

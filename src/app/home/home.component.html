@@ -1,3 +1,14 @@
-<textarea class="twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
+<div class="input-container">
+  <div class="fixed-container">
+    <h3 class="section-labels left-margin">HTML / TWIG</h3>
+    <textarea #twigTemplateElement class="twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
 
-<div class="twig-preview" [innerHTML]="renderedHtml | safeHtml"></div>
+    <h3 class="section-labels left-margin">CSS</h3>
+    <textarea #cssTemplateElement class="css-template" [(ngModel)]="cssTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
+  </div>
+</div>
+
+<div class="twig-preview-container">
+  <h3 class="section-labels">Preview</h3>
+  <div class="twig-preview" [innerHTML]="renderedHtml | safeHtml"></div>
+</div>
