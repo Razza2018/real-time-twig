@@ -15,7 +15,9 @@ export class TwigService {
     this.twigExtendFunctions(this.Twig);
   }
 
-  render(template: string): string {
+  render(template: string, styles: string): string {
+    template = "<style>" + styles + "</style>" + template;
+    console.log(template);
     try {
       var twigTemplate = this.Twig.twig({
         data: template,

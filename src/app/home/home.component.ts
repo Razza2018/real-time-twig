@@ -9,6 +9,7 @@ import { TwigService } from '../twig.service';
 export class HomeComponent implements OnInit {
 
   twigTemplate: string = "{{- 'Hello Everyone!' -}}{% if 'name' %}";
+  cssTemplate: string = '* {color: red;}';
   renderedHtml: string = "";
 
   previousWidth: number = 0;
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit {
   }
 
   renderTwig(): void {
-    this.renderedHtml = this.twig.render(this.twigTemplate);
+    this.renderedHtml = this.twig.render(this.twigTemplate, this.cssTemplate);
   }
 
   adjustTextAreaHeight(event) {
