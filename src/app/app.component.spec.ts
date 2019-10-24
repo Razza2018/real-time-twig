@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'twig-pdf-exportor'`, () => {
+  it(`should have as title 'real-time-twig'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('twig-pdf-exportor');
+    expect(app.title).toEqual('real-time-twig');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('twig-pdf-exportor app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('real-time-twig app is running!');
   });
 });

@@ -1,0 +1,3 @@
+<textarea class="twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
+
+<div class="twig-preview" [innerHTML]="renderedHtml | safeHtml"></div>

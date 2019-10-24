@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('twig-pdf-exportor app is running!');
+    expect(page.getTitleText()).toEqual('real-time-twig app is running!');
   });
 
   afterEach(async () => {
