@@ -7,22 +7,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.twig-template {
-  font-family: Menlo, Consolas, DejaVu Sans Mono, monospace;
-  width: calc(100% - 20px);
-  tab-size: 2;
-  resize: none;
-  min-height: calc(5em - 1px);
-  max-height: 50vh;
-  margin: 5px 10px 10px 10px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border-color: #ccc;
-  background-color: #fff;
-  color: #383a42;
-}
-
-.css-template {
+.input-templates {
   font-family: Menlo, Consolas, DejaVu Sans Mono, monospace;
   width: calc(100% - 20px);
   tab-size: 2;
@@ -42,38 +27,28 @@
     position: relative;
     width: calc(100% - (210mm + 10px));
     height: 100%;
-    /* min-width: 540px; */
     display: inline-block;
     vertical-align: top;
   }
 
   .fixed-container {
     position: fixed;
-    top: 37px;
+    top: 0;
     right: calc(210mm + 10px);
     bottom: 0;
     left: 0;
   }
 
-  .twig-template {
+  .input-templates {
     display: block;
     width: calc(100% - 20px);
-    height: calc(50% - 51.72px);
-    min-height: calc(50% - 51.72px);
-    max-height: calc(50% - 51.72px);
-  }
-
-  .css-template {
-    display: block;
-    width: calc(100% - 20px);
-    height: calc(50% - 51.72px);
-    min-height: calc(50% - 51.72px);
-    max-height: calc(50% - 51.72px);
+    height: calc(33.55% - 51.72px);
+    min-height: calc(33.55% - 51.72px);
+    max-height: calc(33.55% - 51.72px);
   }
 
   .twig-preview-container {
     display: inline-block;
     vertical-align: top;
-    margin-top: 37px;
   }
 }
