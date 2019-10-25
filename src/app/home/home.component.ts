@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if ((this.previousWidth >= 1469 && event.target.innerWidth < 1469) || (this.previousWidth < 1469 && event.target.innerWidth >= 1469)) {
+    if ((this.previousWidth >= 1100 && event.target.innerWidth < 1100) || (this.previousWidth < 1100 && event.target.innerWidth >= 1100)) {
       this.adjustTextAreaHeight({target: this.twigTemplateElement.nativeElement});
       this.adjustTextAreaHeight({target: this.cssTemplateElement.nativeElement});
     }

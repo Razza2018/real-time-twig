@@ -37,12 +37,12 @@
   color: #383a42;
 }
 
-@media screen and (min-width: 1469px) {
+@media screen and (min-width: 1100px) {
   .input-container {
     position: relative;
     width: calc(100% - (210mm + 10px));
     height: 100%;
-    min-width: 540px;
+    /* min-width: 540px; */
     display: inline-block;
     vertical-align: top;
   }
