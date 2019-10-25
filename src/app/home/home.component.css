@@ -59,7 +59,7 @@
 
   .fixed-container {
     position: fixed;
-    top: 0;
+    top: 37px;
     right: calc(210mm + 10px);
     bottom: 0;
     left: 0;
@@ -84,6 +84,7 @@
   .twig-preview-container {
     display: inline-block;
     vertical-align: top;
+    margin-top: 37px;
   }
 
   .twig-preview {
