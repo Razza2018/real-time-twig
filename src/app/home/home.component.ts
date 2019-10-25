@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   twigTemplate: string = '';
   cssTemplate: string = '';
+  jsonTemplate: string = '';
 
   previousWidth: number = 0;
 
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() { }
 
   renderTwig(): void {
-    this.twig.render(this.twigTemplate, this.cssTemplate);
+    this.twig.render(this.twigTemplate, this.cssTemplate, this.jsonTemplate);
   }
 
   adjustTextAreaHeight(event, ignoreCurrentHeight: boolean = false) {

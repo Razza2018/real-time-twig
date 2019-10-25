@@ -11,6 +11,7 @@ export class TwigPreviewComponent implements OnInit {
 
   @Input() twigTemplate: string = '';
   @Input() cssTemplate: string = '';
+  @Input() jsonTemplate: string = '';
 
   renderedHtml: string = '';
 
@@ -19,7 +20,7 @@ export class TwigPreviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.twig.render(this.twigTemplate, this.cssTemplate)
+    this.twig.render(this.twigTemplate, this.cssTemplate, this.jsonTemplate)
   }
 
 }

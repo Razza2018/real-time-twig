@@ -17,15 +17,21 @@ export class TwigService {
     this.twigExtendFunctions(this.Twig);
   }
 
-  render(template: string, styles: string): void {
+  render(template: string, styles: string, json: string): void {
+    let data: object = {};
+
     template = "<style>" + styles + "</style>" + template;
     try {
+      if (json) {
+        data = JSON.parse(json);
+      }
+
       var twigTemplate = this.Twig.twig({
         data: template,
         rethrow: true
       });
 
-      this.renderedHtml.emit(twigTemplate.render());
+      this.renderedHtml.emit(twigTemplate.render(data));
     } catch (e) {
       this.renderedHtml.emit(e);
     }
