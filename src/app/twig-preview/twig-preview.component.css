@@ -1,0 +1,15 @@
+.twig-preview {
+  width: 210mm;
+  min-height: 297mm;
+  box-shadow: 0 0 3px 0 #ccc;
+  box-sizing: border-box;
+  padding: 12.7mm;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+@media screen and (min-width: 1469px) {
+  .twig-preview {
+    margin: 5px 10px 10px 0;
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import * as Twig from 'twig/twig.min.js';
 import * as moment from 'moment-timezone';
 import * as _ from 'lodash';
@@ -11,11 +11,13 @@ export class TwigService {
 
   private Twig: Twig = Twig;
 
+  renderedHtml: EventEmitter<string> = new EventEmitter();
+
   constructor() {
     this.twigExtendFunctions(this.Twig);
   }
 
-  render(template: string, styles: string): string {
+  render(template: string, styles: string): void {
     template = "<style>" + styles + "</style>" + template;
     console.log(template);
     try {
@@ -24,9 +26,9 @@ export class TwigService {
         rethrow: true
       });
 
-      return twigTemplate.render();
+      this.renderedHtml.emit(twigTemplate.render());
     } catch (e) {
-      return e;
+      this.renderedHtml.emit(e);
     }
   }
 

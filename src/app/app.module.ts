@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { TwigPreviewComponent } from './twig-preview/twig-preview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SafeHtmlPipe,
-    ToolbarComponent
+    ToolbarComponent,
+    TwigPreviewComponent
   ],
   imports: [
     BrowserModule,

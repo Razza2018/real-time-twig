@@ -12,5 +12,6 @@
 
 <div class="twig-preview-container">
   <h3 class="section-labels">Preview</h3>
-  <div class="twig-preview" [innerHTML]="renderedHtml | safeHtml"></div>
+
+  <app-twig-preview [twigTemplate]="twigTemplate" [cssTemplate]="cssTemplate"></app-twig-preview>
 </div>
