@@ -3,10 +3,10 @@
 <div class="input-container">
   <div class="fixed-container">
     <h3 class="section-labels left-margin">HTML / TWIG</h3>
-    <textarea #twigTemplateElement class="twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
+    <textarea #twigTemplateElement class="twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="handleTabKey($event)"></textarea>
 
     <h3 class="section-labels left-margin">CSS</h3>
-    <textarea #cssTemplateElement class="css-template" [(ngModel)]="cssTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="onKey($event)"></textarea>
+    <textarea #cssTemplateElement class="css-template" [(ngModel)]="cssTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="handleTabKey($event)"></textarea>
   </div>
 </div>
 
