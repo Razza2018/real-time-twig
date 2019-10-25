@@ -43,8 +43,17 @@
     display: block;
     width: calc(100% - 20px);
     height: calc(33.55% - 51.72px);
-    min-height: calc(33.55% - 51.72px);
-    max-height: calc(33.55% - 51.72px);
+    transition: height 500ms;
+    min-height: unset;
+    max-height: unset;
+  }
+
+  .input-template_focus {
+    height: calc(67.1% - 51.72px);
+  }
+
+  .input-template_blur {
+    height: calc(16.775% - 51.72px);
   }
 
   .twig-preview-container {
