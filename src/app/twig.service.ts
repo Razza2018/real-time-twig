@@ -56,6 +56,14 @@ export class TwigService {
       return gstCalc;
     });
 
+    Twig.extendFunction("jsonParse", (json) => {
+      try {
+        return JSON.parse(json);
+      } catch (e) {
+        return null;
+      }
+    });
+
     Twig.extendFunction("datetime", (value, format, timezone = "Australia/Sydney", addSymbol = null, addNumber = null, addType = null) => {
 
         var currentMoment = null;
@@ -152,10 +160,10 @@ export class TwigService {
     	return content;
     });
 
-    Twig.extendFunction("lodashTemplate", function(template) {
-      var compiled = _.template(template);
+    Twig.extendFunction("lodashTemplate", function(template, imports = {}) {
+      var compiler = _.template(template, {imports: {moment: moment, numeral: numeral, _: _}});
 
-      return compiled({numeral: numeral, moment: moment, _: _});
+      return compiler(imports);
     });
 
     // Custom functions which are needed for VIC BDM
