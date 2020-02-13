@@ -5,7 +5,7 @@ import { TwigService } from '../twig.service';
   selector: 'app-twig-preview',
   templateUrl: './twig-preview.component.html',
   styleUrls: ['./twig-preview.component.css'],
-  encapsulation: ViewEncapsulation.Native
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class TwigPreviewComponent implements OnInit {
 
