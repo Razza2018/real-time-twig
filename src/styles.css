@@ -6,10 +6,24 @@ body {
 
 .btn {
   font-family: 'Roboto', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   display: inline-block;
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 8px 14px;
   border-radius: 4px;
-  margin: 10px 10px 0 10px;
+  margin: 10px 4px;
+  appearance: none;
+  background-color: #fff;
+}
+
+.btn:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #5d5df7;
+}
+
+.btn:active,
+.btn.selected:not(:hover) {
+  color: #fff;
+  background-color: #1919b3;
 }

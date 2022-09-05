@@ -1,18 +1,18 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, Input } from '@angular/core';
 import { TwigService } from '../twig.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.css']
 })
-export class HomeComponent implements OnInit {
+export class EditorComponent implements OnInit {
 
   twigTemplate: string = '';
   cssTemplate: string = '';
   jsonTemplate: string = '';
-
   previousWidth: number = 0;
+  @Input() selectedPanel: string = 'html-twig';
 
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
   @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
@@ -43,10 +43,11 @@ export class HomeComponent implements OnInit {
 
     this.previousWidth = event.target.innerWidth;
   }
-
+  
   constructor(private twig: TwigService) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+  }
 
   renderTwig(): void {
     this.twig.render(this.twigTemplate, this.cssTemplate, this.jsonTemplate);
@@ -60,14 +61,14 @@ export class HomeComponent implements OnInit {
   }
 
   handleTabKey(event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      var start = event.target.selectionStart;
-      var end = event.target.selectionEnd;
+    var start = event.target.selectionStart;
+    var end = event.target.selectionEnd;
 
-      event.target.selectionStart = event.target.selectionEnd = start + 1;
-      event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
-      event.target.selectionStart = event.target.selectionEnd = start + 1;
+    event.target.selectionStart = event.target.selectionEnd = start + 1;
+    event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
+    event.target.selectionStart = event.target.selectionEnd = start + 1;
   }
 
   inputTemplateFocus(event) {

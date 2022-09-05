@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
+  _selectedPanel: string = 'html-twig';
+  @Output() selectedPanel: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setSelectedPanel(selection: string): void {
+    this._selectedPanel = selection;
+    this.selectedPanel.emit(selection);
   }
 
 }

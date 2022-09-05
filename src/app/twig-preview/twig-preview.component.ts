@@ -9,18 +9,12 @@ import { TwigService } from '../twig.service';
 })
 export class TwigPreviewComponent implements OnInit {
 
-  @Input() twigTemplate: string = '';
-  @Input() cssTemplate: string = '';
-  @Input() jsonTemplate: string = '';
-
   renderedHtml: string = '';
 
   constructor(private twig: TwigService) {
     twig.renderedHtml.subscribe((renderedHtml: string) => this.renderedHtml = renderedHtml);
   }
 
-  ngOnInit() {
-    this.twig.render(this.twigTemplate, this.cssTemplate, this.jsonTemplate)
-  }
+  ngOnInit(): void { }
 
 }

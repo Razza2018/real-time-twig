@@ -1,0 +1,18 @@
+<div class="input-container">
+  <div class="fixed-container">
+    <div class="panel" [ngClass]="{'visible': selectedPanel === 'html-twig'}">
+      <h3 class="section-labels left-margin">HTML / TWIG</h3>
+      <textarea #twigTemplateElement class="input-templates twig-template" [(ngModel)]="twigTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="handleTabKey($event)" (focus)="inputTemplateFocus($event)" (blur)="inputTemplateFocus(null)"></textarea>
+    </div>
+
+    <div class="panel" [ngClass]="{'visible': selectedPanel === 'css'}">
+      <h3 class="section-labels left-margin">CSS</h3>
+      <textarea #cssTemplateElement class="input-templates css-template" [(ngModel)]="cssTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="handleTabKey($event)" (focus)="inputTemplateFocus($event)" (blur)="inputTemplateFocus(null)"></textarea>
+    </div>
+
+    <div class="panel" [ngClass]="{'visible': selectedPanel === 'json'}">
+      <h3 class="section-labels left-margin">JSON</h3>
+      <textarea #jsonTemplateElement class="input-templates json-template" [(ngModel)]="jsonTemplate" (ngModelChange)="renderTwig()" (input)="adjustTextAreaHeight($event)" (keydown.Tab)="handleTabKey($event)" (focus)="inputTemplateFocus($event)" (blur)="inputTemplateFocus(null)"></textarea>
+    </div>
+  </div>
+</div>

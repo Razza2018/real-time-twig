@@ -1,1 +1,7 @@
-<app-home></app-home>
+<app-toolbar (selectedPanel)="selectedPanel = $event"></app-toolbar>
+
+<div class="view">
+  <app-editor [selectedPanel]="selectedPanel"></app-editor>
+
+  <app-page></app-page>
+</div>

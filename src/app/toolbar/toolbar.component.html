@@ -1,3 +1,7 @@
 <ul class="bar">
-  <li><a class="btn">Manage Data</a></li>
+  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'html-twig'}" (click)="setSelectedPanel('html-twig')">HTML/Twig</button></li>
+  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'css'}" (click)="setSelectedPanel('css')">CSS</button></li>
+  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'json'}" (click)="setSelectedPanel('json')">JSON</button></li>
+  <!-- <li><button class="btn">Save</button></li> -->
+  <!-- <li><button class="btn">Load</button></li> -->
 </ul>

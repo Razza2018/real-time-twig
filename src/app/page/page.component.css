@@ -1,0 +1,10 @@
+.twig-preview-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.section-labels {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Roboto', sans-serif;
+}
