@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
 
   previousWidth: number = 0;
 
-  @ViewChild('twigTemplateElement',  {static: false}) twigTemplateElement: ElementRef;
-  @ViewChild('cssTemplateElement',  {static: false}) cssTemplateElement: ElementRef;
-  @ViewChild('jsonTemplateElement',  {static: false}) jsonTemplateElement: ElementRef;
+  @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
+  @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
+  @ViewChild('jsonTemplateElement') jsonTemplateElement: ElementRef;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
