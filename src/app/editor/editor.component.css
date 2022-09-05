@@ -26,6 +26,7 @@
 .input-templates {
   font-family: Menlo, Consolas, DejaVu Sans Mono, monospace;
   width: calc(100% - 20px);
+  height: 400px;
   tab-size: 2;
   resize: none;
   margin: 5px 10px 10px 10px;
