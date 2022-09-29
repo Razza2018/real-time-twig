@@ -60,17 +60,6 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  handleTabKey(event) {
-    event.preventDefault();
-
-    var start = event.target.selectionStart;
-    var end = event.target.selectionEnd;
-
-    event.target.selectionStart = event.target.selectionEnd = start + 1;
-    event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
-    event.target.selectionStart = event.target.selectionEnd = start + 1;
-  }
-
   inputTemplateFocus(event) {
     this.removeFocusClasses();
 
@@ -91,6 +80,45 @@ export class EditorComponent implements OnInit {
     this.cssTemplateElement.nativeElement.classList.remove('input-template_blur');
     this.jsonTemplateElement.nativeElement.classList.remove('input-template_focus');
     this.jsonTemplateElement.nativeElement.classList.remove('input-template_blur');
+  }
+
+  handleKeys(event: any) {
+    var keys = [
+      'tab',
+      'ctrl-[',
+      'ctrl-]'
+    ];
+
+    var key = event.key.toLowerCase();
+    var start = event.target.selectionStart;
+    var end = event.target.selectionEnd;
+
+    if (event.shiftKey) key = 'shift-' + key;
+    if (event.altKey) key = 'alt-' + key;
+    if (event.ctrlKey) key = 'ctrl-' + key;
+
+    console.log(key);
+
+    if (keys.includes(key)) event.preventDefault();
+
+    if (key === 'tab') this.handleInsertTab(event, start, end);
+    if (key === 'ctrl-[') this.handleLeftIndent(event, start, end);
+    if (key === 'ctrl-]') this.handleRightIndent(event, start, end);
+  }
+  
+  handleInsertTab(event, start, end) {
+    event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
+    event.target.selectionStart = event.target.selectionEnd = start + 1;
+  }
+
+  handleLeftIndent(event, start, end) {
+    if (event.target.value.slice(0, 1) === '\t') event.target.value = event.target.value.slice(1);
+    event.target.selectionStart = event.target.selectionEnd = start - 1;
+  }
+
+  handleRightIndent(event, start, end) {
+    event.target.value = '\t' + event.target.value.substring(0, start) + event.target.value.substring(end);
+    event.target.selectionStart = event.target.selectionEnd = start + 1;
   }
 
 }
