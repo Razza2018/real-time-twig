@@ -86,12 +86,29 @@ export class EditorComponent implements OnInit {
     var keys = [
       'tab',
       'ctrl-[',
-      'ctrl-]'
+      'ctrl-]',
+      'ctrl-shift-d'
     ];
 
+    console.log(window.navigator.userAgent);
+    
     var key = event.key.toLowerCase();
     var start = event.target.selectionStart;
     var end = event.target.selectionEnd;
+    var direction = event.target.selectionDirection;
+    var startOfLine = start;
+    var endOfLine = end;
+
+    console.log('start:', start);
+    console.log('end:', end);
+
+    while (startOfLine !== 0 && event.target.value.slice(startOfLine -1, startOfLine) !== '\n') {
+      startOfLine--;
+    }
+
+    while (endOfLine !== event.target.value.length && event.target.value.slice(endOfLine, endOfLine + 1) !== '\n') {
+      endOfLine++;
+    }
 
     if (event.shiftKey) key = 'shift-' + key;
     if (event.altKey) key = 'alt-' + key;
@@ -101,24 +118,42 @@ export class EditorComponent implements OnInit {
 
     if (keys.includes(key)) event.preventDefault();
 
-    if (key === 'tab') this.handleInsertTab(event, start, end);
-    if (key === 'ctrl-[') this.handleLeftIndent(event, start, end);
-    if (key === 'ctrl-]') this.handleRightIndent(event, start, end);
+    if (key === 'tab') this.handleInsertTab(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'ctrl-[') this.handleLeftIndent(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'ctrl-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'ctrl-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
   }
   
-  handleInsertTab(event, start, end) {
+  handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
     event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
+    
     event.target.selectionStart = event.target.selectionEnd = start + 1;
   }
 
-  handleLeftIndent(event, start, end) {
-    if (event.target.value.slice(0, 1) === '\t') event.target.value = event.target.value.slice(1);
-    event.target.selectionStart = event.target.selectionEnd = start - 1;
+  handleLeftIndent(event, start, end, startOfLine, endOfLine, direction) {
+    if (event.target.value.slice(startOfLine, startOfLine + 1) === '\t') {
+      event.target.value = event.target.value.slice(0, startOfLine) + event.target.value.slice(startOfLine + 1);
+
+      event.target.selectionStart = start - 1;
+      event.target.selectionEnd = end - 1;
+      event.target.selectionDirection = direction;
+    }
   }
 
-  handleRightIndent(event, start, end) {
-    event.target.value = '\t' + event.target.value.substring(0, start) + event.target.value.substring(end);
-    event.target.selectionStart = event.target.selectionEnd = start + 1;
+  handleRightIndent(event, start, end, startOfLine, endOfLine, direction) {
+    event.target.value = event.target.value.slice(0, startOfLine) + '\t' + event.target.value.slice(startOfLine);
+
+    event.target.selectionStart = start + 1;
+    event.target.selectionEnd = end + 1;
+    event.target.selectionDirection = direction;
+  }
+
+  handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction) {
+    event.target.value = event.target.value.slice(0, endOfLine) + '\n' + event.target.value.slice(startOfLine, endOfLine) + event.target.value.slice(endOfLine);
+
+    event.target.selectionStart = start + (endOfLine - startOfLine) + 1;
+    event.target.selectionEnd = end + (endOfLine - startOfLine) + 1;
+    event.target.selectionDirection = direction;
   }
 
 }
