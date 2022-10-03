@@ -95,9 +95,16 @@ export class EditorComponent implements OnInit {
     this.jsonTemplateElement.nativeElement.classList.remove('input-template_blur');
   }
 
+  isUpperCase(char: string): boolean {
+    if (char === char.toUpperCase() && char !== char.toLowerCase()) return true;
+    return false;
+  }
+
   handleKeys(event: any) {
     var genericKeys = [
-      'tab'
+      'tab',
+      'alt-arrowleft',
+      'alt-arrowright'
     ];
 
     var windowsKeys = [
@@ -132,6 +139,8 @@ export class EditorComponent implements OnInit {
     if (event.metaKey) key = 'cmd-' + key;
     if (event.ctrlKey) key = 'ctrl-' + key;
 
+    console.log(key);
+
     if (genericKeys.includes(key)) {
       event.preventDefault();
     } else if (this.osType === 'windows' || this.osType === 'linux') {
@@ -142,6 +151,8 @@ export class EditorComponent implements OnInit {
 
     // Generic shortcuts
     if (key === 'tab') this.handleInsertTab(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'alt-arrowleft') this.handlePreviousSubWord(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'alt-arrowright') this.handleNextSubWord(event, start, end, startOfLine, endOfLine, direction);
 
     // Windows and Linux shortcuts
     if (this.osType === 'windows' || this.osType === 'linux') {
@@ -204,6 +215,68 @@ export class EditorComponent implements OnInit {
     event.target.selectionStart = start + (endOfLine - startOfLine) + 1;
     event.target.selectionEnd = end + (endOfLine - startOfLine) + 1;
     event.target.selectionDirection = direction;
+  }
+
+  handlePreviousSubWord(event, start, end, startOfLine, endOfLine, direction) {
+    let index = start;
+    let skipDashOrUnderscore = true;
+
+    while (index !== 0 && (skipDashOrUnderscore || (
+        event.target.value.slice(index - 1, index) !== '_' &&
+        event.target.value.slice(index - 1, index) !== '-' &&
+        event.target.value.slice(index - 1, index) !== ' '
+      )) && !this.isUpperCase(event.target.value.slice(index - 1, index))) {
+      index--;
+      skipDashOrUnderscore = false;
+    }
+
+    console.log(index, event.target.value.slice(index - 1, index));
+
+    if (index === 0) {
+      event.target.selectionStart = index;
+      event.target.selectionEnd = index;
+    } else if (
+      event.target.value.slice(index - 1, index) === '_' ||
+      event.target.value.slice(index - 1, index) === '-' ||
+      event.target.value.slice(index - 1, index) === ' '
+    ) {
+      event.target.selectionStart = index;
+      event.target.selectionEnd = index;
+    } else {
+      event.target.selectionStart = index - 1;
+      event.target.selectionEnd = index - 1;
+    }
+  }
+
+  handleNextSubWord(event, start, end, startOfLine, endOfLine, direction) {
+    let index = start;
+    let skipNextChar = true;
+
+    while (index !== event.target.value.length && (skipNextChar || (
+        event.target.value.slice(index, index + 1) !== '_' &&
+        event.target.value.slice(index, index + 1) !== '-' &&
+        event.target.value.slice(index, index + 1) !== ' '
+      )) && (skipNextChar || !this.isUpperCase(event.target.value.slice(index, index + 1)))) {
+      index++;
+      skipNextChar = false;
+    }
+
+    console.log(index, event.target.value.slice(index, index + 1));
+
+    if (index === event.target.value.length) {
+      event.target.selectionStart = index;
+      event.target.selectionEnd = index;
+    } else if (
+      event.target.value.slice(index, index + 1) === '_' ||
+      event.target.value.slice(index, index + 1) === '-' ||
+      event.target.value.slice(index, index + 1) === ' '
+    ) {
+      event.target.selectionStart = index;
+      event.target.selectionEnd = index;
+    } else {
+      event.target.selectionStart = index;
+      event.target.selectionEnd = index;
+    }
   }
 
 }
