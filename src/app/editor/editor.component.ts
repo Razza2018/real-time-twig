@@ -12,6 +12,9 @@ export class EditorComponent implements OnInit {
   cssTemplate: string = '';
   jsonTemplate: string = '';
   previousWidth: number = 0;
+
+  osType: string = 'windows';
+
   @Input() selectedPanel: string = 'html-twig';
 
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
@@ -47,6 +50,16 @@ export class EditorComponent implements OnInit {
   constructor(private twig: TwigService) { }
 
   ngOnInit(): void {
+    this.setOsType();
+  }
+
+  setOsType(): void {
+    var userAgent = window.navigator.userAgent;
+
+    if (userAgent) {
+      if (userAgent.includes('Macintosh')) this.osType = 'macintosh';
+      if (userAgent.includes('Linux')) this.osType = 'linux';
+    }
   }
 
   renderTwig(): void {
@@ -83,14 +96,21 @@ export class EditorComponent implements OnInit {
   }
 
   handleKeys(event: any) {
-    var keys = [
-      'tab',
+    var genericKeys = [
+      'tab'
+    ];
+
+    var windowsKeys = [
       'ctrl-[',
       'ctrl-]',
       'ctrl-shift-d'
     ];
 
-    console.log(window.navigator.userAgent);
+    var macOsKeys = [
+      'cmd-[',
+      'cmd-]',
+      'cmd-shift-d'
+    ];
     
     var key = event.key.toLowerCase();
     var start = event.target.selectionStart;
@@ -98,9 +118,6 @@ export class EditorComponent implements OnInit {
     var direction = event.target.selectionDirection;
     var startOfLine = start;
     var endOfLine = end;
-
-    console.log('start:', start);
-    console.log('end:', end);
 
     while (startOfLine !== 0 && event.target.value.slice(startOfLine -1, startOfLine) !== '\n') {
       startOfLine--;
@@ -112,16 +129,33 @@ export class EditorComponent implements OnInit {
 
     if (event.shiftKey) key = 'shift-' + key;
     if (event.altKey) key = 'alt-' + key;
+    if (event.metaKey) key = 'cmd-' + key;
     if (event.ctrlKey) key = 'ctrl-' + key;
 
-    console.log(key);
+    if (genericKeys.includes(key)) {
+      event.preventDefault();
+    } else if (this.osType === 'windows' || this.osType === 'linux') {
+      if (windowsKeys.includes(key)) event.preventDefault();
+    } else if (this.osType === 'macintosh') {
+      if (macOsKeys.includes(key)) event.preventDefault();
+    }
 
-    if (keys.includes(key)) event.preventDefault();
-
+    // Generic shortcuts
     if (key === 'tab') this.handleInsertTab(event, start, end, startOfLine, endOfLine, direction);
-    if (key === 'ctrl-[') this.handleLeftIndent(event, start, end, startOfLine, endOfLine, direction);
-    if (key === 'ctrl-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
-    if (key === 'ctrl-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
+
+    // Windows and Linux shortcuts
+    if (this.osType === 'windows' || this.osType === 'linux') {
+      if (key === 'ctrl-[') this.handleLeftIndent(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'ctrl-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'ctrl-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
+    }
+
+    // MacOS shortcuts
+    if (this.osType === 'macintosh') {
+      if (key === 'cmd-[') this.handleLeftIndent(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'cmd-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'cmd-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
+    }
   }
   
   handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
