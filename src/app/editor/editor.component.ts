@@ -20,32 +20,6 @@ export class EditorComponent implements OnInit {
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
   @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
   @ViewChild('jsonTemplateElement') jsonTemplateElement: ElementRef;
-
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   if (this.previousWidth >= 1100 && event.target.innerWidth < 1100) {
-  //     console.log(this.twigTemplateElement.nativeElement.classList)
-  //     this.adjustTextAreaHeight({target: this.twigTemplateElement.nativeElement}, true);
-  //     this.adjustTextAreaHeight({target: this.cssTemplateElement.nativeElement}, true);
-  //     this.adjustTextAreaHeight({target: this.jsonTemplateElement.nativeElement}, true);
-  //   } else if (this.previousWidth < 1100 && event.target.innerWidth >= 1100) {
-  //     this.twigTemplateElement.nativeElement.style.transition = 'none';
-  //     this.cssTemplateElement.nativeElement.style.transition = 'none';
-  //     this.jsonTemplateElement.nativeElement.style.transition = 'none';
-
-  //     this.twigTemplateElement.nativeElement.style.height = '';
-  //     this.cssTemplateElement.nativeElement.style.height = '';
-  //     this.jsonTemplateElement.nativeElement.style.height = '';
-
-  //     setTimeout(() => {
-  //       this.twigTemplateElement.nativeElement.style.transition = '';
-  //       this.cssTemplateElement.nativeElement.style.transition = '';
-  //       this.jsonTemplateElement.nativeElement.style.transition = '';
-  //     }, 10);
-  //   }
-
-  //   this.previousWidth = event.target.innerWidth;
-  // }
   
   constructor(private twig: TwigService) { }
 
