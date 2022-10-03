@@ -198,7 +198,9 @@ export class EditorComponent implements OnInit {
     while (index !== 0 && (skipDashOrUnderscore || (
         event.target.value.slice(index - 1, index) !== '_' &&
         event.target.value.slice(index - 1, index) !== '-' &&
-        event.target.value.slice(index - 1, index) !== ' '
+        event.target.value.slice(index - 1, index) !== ' ' &&
+        event.target.value.slice(index - 1, index) !== '\n' &&
+        event.target.value.slice(index - 1, index) !== '\t'
       )) && !this.isUpperCase(event.target.value.slice(index - 1, index))) {
       index--;
       skipDashOrUnderscore = false;
@@ -212,7 +214,9 @@ export class EditorComponent implements OnInit {
     } else if (
       event.target.value.slice(index - 1, index) === '_' ||
       event.target.value.slice(index - 1, index) === '-' ||
-      event.target.value.slice(index - 1, index) === ' '
+      event.target.value.slice(index - 1, index) === ' ' ||
+      event.target.value.slice(index - 1, index) === '\n' ||
+      event.target.value.slice(index - 1, index) === '\t'
     ) {
       event.target.selectionStart = index;
       event.target.selectionEnd = index;
@@ -229,7 +233,9 @@ export class EditorComponent implements OnInit {
     while (index !== event.target.value.length && (skipNextChar || (
         event.target.value.slice(index, index + 1) !== '_' &&
         event.target.value.slice(index, index + 1) !== '-' &&
-        event.target.value.slice(index, index + 1) !== ' '
+        event.target.value.slice(index, index + 1) !== ' ' &&
+        event.target.value.slice(index, index + 1) !== '\n' &&
+        event.target.value.slice(index, index + 1) !== '\t'
       )) && (skipNextChar || !this.isUpperCase(event.target.value.slice(index, index + 1)))) {
       index++;
       skipNextChar = false;
@@ -243,7 +249,9 @@ export class EditorComponent implements OnInit {
     } else if (
       event.target.value.slice(index, index + 1) === '_' ||
       event.target.value.slice(index, index + 1) === '-' ||
-      event.target.value.slice(index, index + 1) === ' '
+      event.target.value.slice(index, index + 1) === ' ' ||
+      event.target.value.slice(index, index + 1) === '\n' ||
+      event.target.value.slice(index, index + 1) === '\t'
     ) {
       event.target.selectionStart = index;
       event.target.selectionEnd = index;
