@@ -131,20 +131,36 @@ export class EditorComponent implements OnInit {
   }
 
   handleLeftIndent(event, start, end, startOfLine, endOfLine, direction) {
-    if (event.target.value.slice(startOfLine, startOfLine + 1) === '\t') {
-      event.target.value = event.target.value.slice(0, startOfLine) + event.target.value.slice(startOfLine + 1);
+    let lines = event.target.value.slice(startOfLine, endOfLine).split('\n');
+    let charsRemoved = 0;
 
-      event.target.selectionStart = start - 1;
-      event.target.selectionEnd = end - 1;
-      event.target.selectionDirection = direction;
+    for (let key in lines) {
+      if (lines[key].slice(0, 1) === '\t') {
+        lines[key] = lines[key].slice(1);
+        charsRemoved++;
+      }
     }
+
+    event.target.value = event.target.value.slice(0, startOfLine) + lines.join('\n') + event.target.value.slice(endOfLine);
+
+    event.target.selectionStart = start - (charsRemoved ? 1 : 0);
+    event.target.selectionEnd = end - charsRemoved;
+    event.target.selectionDirection = direction;
   }
 
   handleRightIndent(event, start, end, startOfLine, endOfLine, direction) {
-    event.target.value = event.target.value.slice(0, startOfLine) + '\t' + event.target.value.slice(startOfLine);
+    let lines = event.target.value.slice(startOfLine, endOfLine).split('\n');
+    let charsAdded = 0;
+
+    for (let key in lines) {
+      lines[key] = '\t' + lines[key];
+      charsAdded++;
+    }
+
+    event.target.value = event.target.value.slice(0, startOfLine) + lines.join('\n') + event.target.value.slice(endOfLine);
 
     event.target.selectionStart = start + 1;
-    event.target.selectionEnd = end + 1;
+    event.target.selectionEnd = end + charsAdded;
     event.target.selectionDirection = direction;
   }
 
