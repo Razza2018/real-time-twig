@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TwigService } from '../twig.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { TwigService } from '../twig.service';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnChanges {
 
   twigTemplate: string = '';
   cssTemplate: string = '';
@@ -20,11 +20,25 @@ export class EditorComponent implements OnInit {
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
   @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
   @ViewChild('jsonTemplateElement') jsonTemplateElement: ElementRef;
-  
+
   constructor(private twig: TwigService) { }
 
   ngOnInit(): void {
     this.setOsType();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.selectedPanel.currentValue === 'html-twig') {
+      setTimeout(() => this.twigTemplateElement.nativeElement.focus(), 0);
+    }
+
+    if (changes.selectedPanel.currentValue === 'css') {
+      setTimeout(() => this.cssTemplateElement.nativeElement.focus(), 0);
+    }
+
+    if (changes.selectedPanel.currentValue === 'json') {
+      setTimeout(() => this.jsonTemplateElement.nativeElement.focus(), 0);
+    }
   }
 
   setOsType(): void {
@@ -92,7 +106,7 @@ export class EditorComponent implements OnInit {
       'cmd-]',
       'cmd-shift-d'
     ];
-    
+
     var key = event.key.toLowerCase();
     var start = event.target.selectionStart;
     var end = event.target.selectionEnd;
@@ -142,10 +156,10 @@ export class EditorComponent implements OnInit {
       if (key === 'cmd-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
     }
   }
-  
+
   handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
     event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
-    
+
     event.target.selectionStart = event.target.selectionEnd = start + 1;
   }
 
