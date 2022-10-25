@@ -1,7 +1,13 @@
-<ul class="bar">
-  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'html-twig'}" (click)="setSelectedPanel('html-twig')">HTML/Twig</button></li>
-  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'css'}" (click)="setSelectedPanel('css')">CSS</button></li>
-  <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'json'}" (click)="setSelectedPanel('json')">JSON</button></li>
-  <!-- <li><button class="btn">Save</button></li> -->
-  <!-- <li><button class="btn">Load</button></li> -->
-</ul>
+<div class="tool-bar-container">
+  <ul class="bar">
+    <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'html-twig'}" (click)="setSelectedPanel('html-twig')">HTML/Twig</button></li>
+    <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'css'}" (click)="setSelectedPanel('css')">CSS</button></li>
+    <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'json'}" (click)="setSelectedPanel('json')">JSON</button></li>
+    <!-- <li><button class="btn">Save</button></li> -->
+    <!-- <li><button class="btn">Load</button></li> -->
+  </ul>
+
+  <a class="github-link" href="https://www.github.com/Razza2018/real-time-twig/" target="_blank">
+    <img src="/assets/img/GitHub-Mark-32px.png">
+  </a>
+</div>
