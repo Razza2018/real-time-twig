@@ -5,6 +5,7 @@
 .panel {
   display: none;
   height: 100%;
+  text-align: center;
 }
 
 .panel.visible {
@@ -56,5 +57,9 @@
     display: block;
     width: calc(100% - 20px);
     height: calc(100vh - 108px);
+  }
+
+  .panel {
+    text-align: start;
   }
 }
