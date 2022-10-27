@@ -92,7 +92,8 @@ export class EditorComponent implements OnInit, OnChanges {
     var genericKeys = [
       'tab',
       'alt-arrowleft',
-      'alt-arrowright'
+      'alt-arrowright',
+      'enter'
     ];
 
     var windowsKeys = [
@@ -141,6 +142,7 @@ export class EditorComponent implements OnInit, OnChanges {
     if (key === 'tab') this.handleInsertTab(event, start, end, startOfLine, endOfLine, direction);
     if (key === 'alt-arrowleft') this.handlePreviousSubWord(event, start, end, startOfLine, endOfLine, direction);
     if (key === 'alt-arrowright') this.handleNextSubWord(event, start, end, startOfLine, endOfLine, direction);
+    if (key === 'enter') this.handleNewLine(event, start, end, startOfLine, endOfLine, direction);
 
     // Windows and Linux shortcuts
     if (this.osType === 'windows' || this.osType === 'linux') {
@@ -273,6 +275,26 @@ export class EditorComponent implements OnInit, OnChanges {
       event.target.selectionStart = index;
       event.target.selectionEnd = index;
     }
+  }
+
+  handleNewLine(event, start, end, startOfLine, endOfLine, direction) {
+    let tabs: number = 0;
+    let output: string = '';
+
+    while (event.target.value.slice(startOfLine + tabs, startOfLine + tabs + 1) === '\t') {
+      tabs++;
+    }
+
+    output = event.target.value.slice(0, start) + '\n';
+
+    for (let i = 0; i < tabs; i++) output += '\t';
+
+    output += event.target.value.slice(end, event.target.value.length);
+
+    event.target.value = output;
+
+    event.target.selectionStart = start + tabs + 1;
+    event.target.selectionEnd = start + tabs + 1;
   }
 
 }
