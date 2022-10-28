@@ -100,14 +100,16 @@ export class EditorComponent implements OnInit, OnChanges {
       'ctrl-[',
       'ctrl-]',
       'ctrl-shift-d',
-      'ctrl-enter'
+      'ctrl-enter',
+      'ctrl-shift-enter'
     ];
 
     var macOsKeys = [
       'cmd-[',
       'cmd-]',
       'cmd-shift-d',
-      'cmd-enter'
+      'cmd-enter',
+      'cmd-shift-enter'
     ];
 
     var key = event.key.toLowerCase();
@@ -152,6 +154,7 @@ export class EditorComponent implements OnInit, OnChanges {
       if (key === 'ctrl-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'ctrl-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'ctrl-enter') this.handleNewLineBelow(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'ctrl-shift-enter') this.handleNewLineAbove(event, start, end, startOfLine, endOfLine, direction);
     }
 
     // MacOS shortcuts
@@ -160,6 +163,7 @@ export class EditorComponent implements OnInit, OnChanges {
       if (key === 'cmd-]') this.handleRightIndent(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'cmd-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'cmd-enter') this.handleNewLineBelow(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'cmd-shift-enter') this.handleNewLineAbove(event, start, end, startOfLine, endOfLine, direction);
     }
   }
 
@@ -319,6 +323,28 @@ export class EditorComponent implements OnInit, OnChanges {
 
     event.target.selectionStart = endOfLine + tabs + 1;
     event.target.selectionEnd = endOfLine + tabs + 1;
+  }
+
+  handleNewLineAbove(event, start, end, startOfLine, endOfLine, direction) {
+    let tabs: number = 0;
+    let output: string = '';
+
+    while (event.target.value.slice(startOfLine + tabs, startOfLine + tabs + 1) === '\t') {
+      tabs++;
+    }
+
+    output = event.target.value.slice(0, startOfLine);
+
+    for (let i = 0; i < tabs; i++) output += '\t';
+
+    output += '\n';
+
+    output += event.target.value.slice(startOfLine, event.target.value.length);
+
+    event.target.value = output;
+
+    event.target.selectionStart = startOfLine + tabs;
+    event.target.selectionEnd = startOfLine + tabs;
   }
 
 }
