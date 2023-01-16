@@ -23,6 +23,10 @@ export class TwigService {
     template = "<style>" + styles + "</style>" + template;
     try {
       if (json) {
+        if (json.includes('//')) {
+          json = json.replace(/(?:(,\s*?)\n\s*?)?\/\/[^\n]*?(?=\n|$)/g, '$1');
+        }
+
         data = JSON.parse(json);
       }
 
