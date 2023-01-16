@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.9.0
+      -run: npm cache verify
       - run: npm install
       - run: ng build
       - uses: FirebaseExtended/action-hosting-deploy@v0
