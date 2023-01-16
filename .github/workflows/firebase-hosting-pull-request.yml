@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js environment
-        uses: actions/setup-node@v18.9.0
+        uses: actions/setup-node@v8.19.1
       - run: npm install
       - run: ng build
       - uses: FirebaseExtended/action-hosting-deploy@v0
