@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install -g @angular/cli
+      - run: npm install
       - run: ng build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
