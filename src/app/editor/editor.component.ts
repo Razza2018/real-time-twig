@@ -101,7 +101,8 @@ export class EditorComponent implements OnInit, OnChanges {
       'ctrl-]',
       'ctrl-shift-d',
       'ctrl-enter',
-      'ctrl-shift-enter'
+      'ctrl-shift-enter',
+      'ctrl-/'
     ];
 
     var macOsKeys = [
@@ -109,7 +110,8 @@ export class EditorComponent implements OnInit, OnChanges {
       'cmd-]',
       'cmd-shift-d',
       'cmd-enter',
-      'cmd-shift-enter'
+      'cmd-shift-enter',
+      'cmd-/'
     ];
 
     var key = event.key.toLowerCase();
@@ -155,6 +157,7 @@ export class EditorComponent implements OnInit, OnChanges {
       if (key === 'ctrl-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'ctrl-enter') this.handleNewLineBelow(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'ctrl-shift-enter') this.handleNewLineAbove(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'ctrl-/') this.handleToggleComment(event, start, end, startOfLine, endOfLine, direction);
     }
 
     // MacOS shortcuts
@@ -164,7 +167,22 @@ export class EditorComponent implements OnInit, OnChanges {
       if (key === 'cmd-shift-d') this.handleDuplicateLine(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'cmd-enter') this.handleNewLineBelow(event, start, end, startOfLine, endOfLine, direction);
       if (key === 'cmd-shift-enter') this.handleNewLineAbove(event, start, end, startOfLine, endOfLine, direction);
+      if (key === 'cmd-/') this.handleToggleComment(event, start, end, startOfLine, endOfLine, direction);
     }
+
+    if (event.target.classList.contains('twig-template')) {
+      this.twigTemplate = event.target.value;
+    }
+
+    if (event.target.classList.contains('css-template')) {
+      this.cssTemplate = event.target.value;
+    }
+
+    if (event.target.classList.contains('json-template')) {
+      this.jsonTemplate = event.target.value;
+    }
+
+    this.renderTwig();
   }
 
   handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
@@ -230,8 +248,6 @@ export class EditorComponent implements OnInit, OnChanges {
       skipDashOrUnderscore = false;
     }
 
-    console.log(index, event.target.value.slice(index - 1, index));
-
     if (index === 0) {
       event.target.selectionStart = index;
       event.target.selectionEnd = index;
@@ -264,8 +280,6 @@ export class EditorComponent implements OnInit, OnChanges {
       index++;
       skipNextChar = false;
     }
-
-    console.log(index, event.target.value.slice(index, index + 1));
 
     if (index === event.target.value.length) {
       event.target.selectionStart = index;
@@ -345,6 +359,32 @@ export class EditorComponent implements OnInit, OnChanges {
 
     event.target.selectionStart = startOfLine + tabs;
     event.target.selectionEnd = startOfLine + tabs;
+  }
+
+  handleToggleComment(event, start, end, startOfLine, endOfLine, direction) {
+    let lines = event.target.value.slice(startOfLine, endOfLine).split('\n');
+    let charsAdded = 0;
+
+    for (let key in lines) {
+
+      if (lines[key].includes('//')) {
+        lines[key] = lines[key].replace(/\/\/ ?/, '')
+        charsAdded += -3;
+      } else {
+        let index = 0;
+
+        while (lines[key][index] === ' ' || lines[key][index] === '\t') index++;
+
+        lines[key] = lines[key].slice(0, index) + '// ' + lines[key].slice(index, lines[key].length);
+        charsAdded += 3;
+      }
+    }
+
+    event.target.value = event.target.value.slice(0, startOfLine) + lines.join('\n') + event.target.value.slice(endOfLine);
+
+    event.target.selectionStart = start + (charsAdded > 0 ? 3 : -3);
+    event.target.selectionEnd = end + charsAdded;
+    event.target.selectionDirection = direction;
   }
 
 }
