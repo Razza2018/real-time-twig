@@ -347,7 +347,7 @@ export class TwigExtendsService {
 
       output = format;
 
-      output = output.replace(/na|un|li|l2|su|ci|cu|st|ST|po|co|CO/g, (matched) => {
+      output = output.replace(/na|un|li|l2|l3|l4|su|ci|cu|st|ST|po|co|CO/g, (matched) => {
         if (matched === 'na') return name;
         if (matched === 'un') return unit;
         if (matched === 'li') return line1;
