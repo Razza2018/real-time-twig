@@ -174,6 +174,8 @@ export class TwigExtendsService {
           un: unit
           li: line1
           l2: line2
+          l3: line3
+          l4: line4
           su: suburb
           ci: city
           cu: county
@@ -253,6 +255,8 @@ export class TwigExtendsService {
       let unit = '';
       let line1 = '';
       let line2 = '';
+      let line3 = '';
+      let line4 = '';
       let suburb = '';
       let city = '';
       let county = '';
@@ -291,6 +295,12 @@ export class TwigExtendsService {
           }
         }
 
+        if (address.line2) line2 += address.line2;
+
+        if (address.line3) line3 += address.line3;
+
+        if (address.line4) line4 += address.line4;
+
         if (address.suburb) suburb += address.suburb;
 
         if (address.city) city += address.city;
@@ -324,6 +334,8 @@ export class TwigExtendsService {
       if (!unit) format = format.replace(/un *\/? */, '');
       if (!line1) format = format.replace(/li *(?:, *)?/, '');
       if (!line2) format = format.replace(/l2 *(?:, *)?/, '');
+      if (!line3) format = format.replace(/l3 *(?:, *)?/, '');
+      if (!line4) format = format.replace(/l4 *(?:, *)?/, '');
       if (!suburb) format = format.replace(/su *(?:, *)?/, '');
       if (!city) format = format.replace(/ci *(?:, *)?/, '');
       if (!county) format = format.replace(/(?:, *)?cu *(?:, *)/, '');
@@ -340,6 +352,8 @@ export class TwigExtendsService {
         if (matched === 'un') return unit;
         if (matched === 'li') return line1;
         if (matched === 'l2') return line2;
+        if (matched === 'l3') return line3;
+        if (matched === 'l4') return line4;
         if (matched === 'su') return suburb;
         if (matched === 'ci') return city;
         if (matched === 'cu') return county;
