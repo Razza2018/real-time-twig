@@ -1,7 +1,9 @@
-<app-toolbar (selectedPanel)="selectedPanel = $event"></app-toolbar>
+<div #siteWrapper class="site-wrapper">
+  <app-toolbar (selectedPanel)="selectedPanel = $event" (toggleDarkMode)="toggleDarkMode()"></app-toolbar>
 
-<div class="view">
-  <app-editor [selectedPanel]="selectedPanel"></app-editor>
+  <div class="view">
+    <app-editor [selectedPanel]="selectedPanel"></app-editor>
 
-  <app-page></app-page>
+    <app-page></app-page>
+  </div>
 </div>
