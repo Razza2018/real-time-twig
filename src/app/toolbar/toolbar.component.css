@@ -3,7 +3,8 @@
   width: 100%;
   margin: 0 0 0 0;
   box-sizing: border-box;
-  background-color: #fff;
+  color: var(--primary);
+  background-color: var(--background);
   z-index: 1;
   border-bottom: 1px solid #ccc;
 }
@@ -17,8 +18,27 @@
   text-align: right;
 }
 
-.github-link {
+.icon {
   margin: 10px 10px 0 0;
+}
+
+.icon img {
+  width: 32px;
+  height: 32px;
+  max-width: 32px;
+  max-height: 32px;
+}
+
+::ng-deep .site-wrapper.darkMode app-toolbar .github-button {
+  filter: brightness(100);
+}
+
+::ng-deep .site-wrapper.darkMode app-toolbar .dark-mode-button-container {
+  background-color: #fff;
+}
+
+::ng-deep .site-wrapper.darkMode app-toolbar .dark-mode-button {
+  filter: invert();
 }
 
 @media screen and (min-width: 1100px) {

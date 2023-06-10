@@ -9,6 +9,7 @@ export class ToolbarComponent implements OnInit {
 
   _selectedPanel: string = 'html-twig';
   @Output() selectedPanel: EventEmitter<string> = new EventEmitter<string>();
+  @Output() toggleDarkMode: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 
