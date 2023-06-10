@@ -21,15 +21,15 @@ export class AppComponent {
     darkModeOverride = localStorage.getItem('dark-mode');
 
     if (darkModeOverride === 'true') {
-      this.toggleDarkMode();
+      this.toggleDarkMode(false);
     }
 
     if (darkModeOverride === null && prefersDarkScheme.matches) {
-      this.toggleDarkMode();
+      this.toggleDarkMode(false);
     }
   }
 
-  toggleDarkMode(): void {
+  toggleDarkMode(saveState: boolean = true): void {
     var darkMode = false;
 
     this.siteWrapper.nativeElement.classList.toggle('darkMode');
@@ -38,7 +38,9 @@ export class AppComponent {
       darkMode = true;
     }
 
-    localStorage.setItem('dark-mode', `${darkMode}`);
+    if (saveState) {
+      localStorage.setItem('dark-mode', `${darkMode}`);
+    }
   }
 
 }
