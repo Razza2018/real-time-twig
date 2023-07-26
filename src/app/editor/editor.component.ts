@@ -367,8 +367,8 @@ export class EditorComponent implements OnInit, OnChanges {
 
     for (let key in lines) {
 
-      if (lines[key].includes('//')) {
-        lines[key] = lines[key].replace(/\/\/ ?/, '')
+      if (lines[key].includes('//') && lines[key].match(/^\s*?\/\/ /)) {
+        lines[key] = lines[key].replace(/^(\s*?)\/\/ /, '$1');
         charsAdded += -3;
       } else {
         let index = 0;
