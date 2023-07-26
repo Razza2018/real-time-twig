@@ -24,7 +24,7 @@ export class TwigService {
     try {
       if (json) {
         if (json.includes('//')) {
-          json = json.replace(/(?:(,\s*?)\n\s*?)?\/\/[^\n]*?(?=\n|$)/g, '$1');
+          json = json.replace(/(?:^|\n)\s*?\/\/.+?(?:\n|$)/g, '');
         }
 
         data = JSON.parse(json);
