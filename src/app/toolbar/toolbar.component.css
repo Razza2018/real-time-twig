@@ -30,6 +30,10 @@
   cursor: pointer;
 }
 
+.separator {
+  margin: 0 10px;
+}
+
 ::ng-deep .site-wrapper.darkMode app-toolbar .github-button {
   filter: brightness(100);
 }

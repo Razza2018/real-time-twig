@@ -8,6 +8,7 @@ import { Component, ViewChild } from '@angular/core';
 export class AppComponent {
 
   selectedPanel: string = 'html-twig';
+  selectedIndenting: string = 'spaces';
 
   title = 'real-time-twig';
 

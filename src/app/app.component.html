@@ -1,8 +1,8 @@
 <div #siteWrapper class="site-wrapper">
-  <app-toolbar (selectedPanel)="selectedPanel = $event" (toggleDarkMode)="toggleDarkMode()"></app-toolbar>
+  <app-toolbar (selectedPanel)="selectedPanel = $event" (selectedIndenting)="selectedIndenting = $event" (toggleDarkMode)="toggleDarkMode()"></app-toolbar>
 
   <div class="view">
-    <app-editor [selectedPanel]="selectedPanel"></app-editor>
+    <app-editor [selectedPanel]="selectedPanel" [selectedIndenting]="selectedIndenting"></app-editor>
 
     <app-page></app-page>
   </div>

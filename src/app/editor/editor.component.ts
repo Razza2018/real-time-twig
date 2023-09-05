@@ -16,6 +16,7 @@ export class EditorComponent implements OnInit, OnChanges {
   osType: string = 'windows';
 
   @Input() selectedPanel: string = 'html-twig';
+  @Input() selectedIndenting: string = 'spaces';
 
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
   @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
@@ -186,9 +187,14 @@ export class EditorComponent implements OnInit, OnChanges {
   }
 
   handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
-    event.target.value = event.target.value.substring(0, start) + '\t' + event.target.value.substring(end);
+    var tabCharacter = '\t';
+    var spaces = 2;
 
-    event.target.selectionStart = event.target.selectionEnd = start + 1;
+    if (this.selectedIndenting === 'spaces') tabCharacter = ' '.repeat(spaces);
+
+    event.target.value = event.target.value.substring(0, start) + tabCharacter + event.target.value.substring(end);
+
+    event.target.selectionStart = event.target.selectionEnd = start + tabCharacter.length;
   }
 
   handleLeftIndent(event, start, end, startOfLine, endOfLine, direction) {

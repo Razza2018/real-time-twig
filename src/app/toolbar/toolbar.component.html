@@ -3,8 +3,11 @@
     <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'html-twig'}" (click)="setSelectedPanel('html-twig')">HTML/Twig</button></li>
     <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'css'}" (click)="setSelectedPanel('css')">CSS</button></li>
     <li><button class="btn" [ngClass]="{'selected': _selectedPanel === 'json'}" (click)="setSelectedPanel('json')">JSON</button></li>
+    <li class="separator"></li>
     <!-- <li><button class="btn">Save</button></li> -->
     <!-- <li><button class="btn">Load</button></li> -->
+    <li><button class="btn" [ngClass]="{'selected': _selectedIndenting === 'spaces'}" (click)="setSelectedIndenting('spaces')">Indent: Spaces</button></li>
+    <li><button class="btn" [ngClass]="{'selected': _selectedIndenting === 'tabs'}" (click)="setSelectedIndenting('tabs')">Indent: Tabs</button></li>
   </ul>
 
   <a class="icon" (click)="toggleDarkMode.emit()">
