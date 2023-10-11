@@ -12,11 +12,12 @@ export class EditorComponent implements OnInit, OnChanges {
   cssTemplate: string = '';
   jsonTemplate: string = '';
   previousWidth: number = 0;
-
   osType: string = 'windows';
+  tabCharacter: string = '\t';
 
   @Input() selectedPanel: string = 'html-twig';
   @Input() selectedIndenting: string = 'spaces';
+  @Input() tabSpaces: number = 2;
 
   @ViewChild('twigTemplateElement') twigTemplateElement: ElementRef;
   @ViewChild('cssTemplateElement') cssTemplateElement: ElementRef;
@@ -26,10 +27,16 @@ export class EditorComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.setOsType();
+    this.tabCharacter = this.setTabCharacter(this.selectedIndenting, this.tabSpaces);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedPanel && changes.selectedPanel.currentValue) {
+      this.focusEditor(this.selectedPanel);
+    }
+
+    if (changes.selectedIndenting || changes.spaces) {
+      this.tabCharacter = this.setTabCharacter(this.selectedIndenting, this.tabSpaces)
       this.focusEditor(this.selectedPanel);
     }
   }
@@ -41,6 +48,14 @@ export class EditorComponent implements OnInit, OnChanges {
       if (userAgent.includes('Macintosh')) this.osType = 'macintosh';
       if (userAgent.includes('Linux')) this.osType = 'linux';
     }
+  }
+
+  setTabCharacter(selectedIndenting: string, spaces: number = 2): string {
+    var tabCharacter = '\t';
+
+    if (selectedIndenting === 'spaces') tabCharacter = ' '.repeat(spaces);
+
+    return tabCharacter;
   }
 
   focusEditor(selectedEditor: string): void {
@@ -189,14 +204,9 @@ export class EditorComponent implements OnInit, OnChanges {
   }
 
   handleInsertTab(event, start, end, startOfLine, endOfLine, direction) {
-    var tabCharacter = '\t';
-    var spaces = 2;
+    event.target.value = event.target.value.substring(0, start) + this.tabCharacter + event.target.value.substring(end);
 
-    if (this.selectedIndenting === 'spaces') tabCharacter = ' '.repeat(spaces);
-
-    event.target.value = event.target.value.substring(0, start) + tabCharacter + event.target.value.substring(end);
-
-    event.target.selectionStart = event.target.selectionEnd = start + tabCharacter.length;
+    event.target.selectionStart = event.target.selectionEnd = start + this.tabCharacter.length;
   }
 
   handleLeftIndent(event, start, end, startOfLine, endOfLine, direction) {
@@ -204,16 +214,16 @@ export class EditorComponent implements OnInit, OnChanges {
     let charsRemoved = 0;
 
     for (let key in lines) {
-      if (lines[key].slice(0, 1) === '\t') {
-        lines[key] = lines[key].slice(1);
+      if (lines[key].slice(0, this.tabCharacter.length) === this.tabCharacter) {
+        lines[key] = lines[key].slice(this.tabCharacter.length);
         charsRemoved++;
       }
     }
 
     event.target.value = event.target.value.slice(0, startOfLine) + lines.join('\n') + event.target.value.slice(endOfLine);
 
-    event.target.selectionStart = start - (charsRemoved ? 1 : 0);
-    event.target.selectionEnd = end - charsRemoved;
+    event.target.selectionStart = start - (charsRemoved ? this.tabCharacter.length : 0);
+    event.target.selectionEnd = end - (charsRemoved * this.tabCharacter.length);
     event.target.selectionDirection = direction;
   }
 
@@ -222,14 +232,14 @@ export class EditorComponent implements OnInit, OnChanges {
     let charsAdded = 0;
 
     for (let key in lines) {
-      lines[key] = '\t' + lines[key];
+      lines[key] = this.tabCharacter + lines[key];
       charsAdded++;
     }
 
     event.target.value = event.target.value.slice(0, startOfLine) + lines.join('\n') + event.target.value.slice(endOfLine);
 
-    event.target.selectionStart = start + 1;
-    event.target.selectionEnd = end + charsAdded;
+    event.target.selectionStart = start + this.tabCharacter.length;
+    event.target.selectionEnd = end + (charsAdded * this.tabCharacter.length);
     event.target.selectionDirection = direction;
   }
 
@@ -311,20 +321,20 @@ export class EditorComponent implements OnInit, OnChanges {
     let tabs: number = 0;
     let output: string = '';
 
-    while (event.target.value.slice(startOfLine + tabs, startOfLine + tabs + 1) === '\t') {
+    while (event.target.value.slice(startOfLine + tabs, startOfLine + tabs + this.tabCharacter.length) === this.tabCharacter) {
       tabs++;
     }
 
     output = event.target.value.slice(0, start) + '\n';
 
-    for (let i = 0; i < tabs; i++) output += '\t';
+    for (let i = 0; i < tabs; i++) output += this.tabCharacter;
 
     output += event.target.value.slice(end, event.target.value.length);
 
     event.target.value = output;
 
-    event.target.selectionStart = start + tabs + 1;
-    event.target.selectionEnd = start + tabs + 1;
+    event.target.selectionStart = start + tabs + this.tabCharacter.length;
+    event.target.selectionEnd = start + tabs + this.tabCharacter.length;
   }
 
   handleNewLineBelow(event, start, end, startOfLine, endOfLine, direction) {
