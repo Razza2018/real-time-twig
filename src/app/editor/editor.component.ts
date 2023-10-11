@@ -29,16 +29,8 @@ export class EditorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedPanel.currentValue === 'html-twig') {
-      setTimeout(() => this.twigTemplateElement.nativeElement.focus(), 0);
-    }
-
-    if (changes.selectedPanel.currentValue === 'css') {
-      setTimeout(() => this.cssTemplateElement.nativeElement.focus(), 0);
-    }
-
-    if (changes.selectedPanel.currentValue === 'json') {
-      setTimeout(() => this.jsonTemplateElement.nativeElement.focus(), 0);
+    if (changes.selectedPanel && changes.selectedPanel.currentValue) {
+      this.focusEditor(this.selectedPanel);
     }
   }
 
@@ -48,6 +40,16 @@ export class EditorComponent implements OnInit, OnChanges {
     if (userAgent) {
       if (userAgent.includes('Macintosh')) this.osType = 'macintosh';
       if (userAgent.includes('Linux')) this.osType = 'linux';
+    }
+  }
+
+  focusEditor(selectedEditor: string): void {
+    if (selectedEditor === 'html-twig') {
+      setTimeout(() => this.twigTemplateElement.nativeElement.focus(), 0);
+    } else if (selectedEditor === 'css') {
+      setTimeout(() => this.cssTemplateElement.nativeElement.focus(), 0);
+    } else if (selectedEditor === 'json') {
+      setTimeout(() => this.jsonTemplateElement.nativeElement.focus(), 0);
     }
   }
 
