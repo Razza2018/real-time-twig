@@ -392,10 +392,10 @@ export class TwigExtendsService {
     });
 
     // This uses moment durations
-    Twig.extendFunction("subtractDates", function(date1String, date2String, durationFormat) {
-      var durationTime = moment.duration(moment(date1String).diff(moment(date2String)));
+    Twig.extendFunction("subtractDates", function(date1String: string, date2String: string, durationFormat: string) {
+      let duration: moment.Duration = moment.duration(moment(date1String).diff(moment(date2String)));
 
-      durationTime = moment.duration(durationTime).get(durationFormat);
+      let durationTime: number = moment.duration(duration).get(durationFormat as moment.unitOfTime.Base);
 
       return durationTime;
     });
